@@ -4,7 +4,7 @@ Build an application that uses jQuery to do the following:
 
 DONE: Contains a form with two inputs for a title and rating along with a button to submit the form.
 
-TODO: When the form is submitted, capture the values for each of the inputs and append them to the DOM along with a button to remove each title and rating from the DOM.
+DONE: When the form is submitted, capture the values for each of the inputs and append them to the DOM along with a button to remove each title and rating from the DOM.
 
 TODO: When the button to remove is clicked, remove each title and rating from the DOM.
 
@@ -22,8 +22,31 @@ $(function(){
 
     $("#rating-form").on("submit", (evt) => {
         evt.preventDefault();
-        console.log("click");
-        // $("#my-movies").append($("<div>").text($("#title")));
+
+        // Get data from form
+        let $title = $("#title").val();
+        let $rating = $('#rating').val();
+        
+        //create delete button
+        let $delBtn = $("<button>");
+        $delBtn.text("X");
+        $delBtn.addClass("btn btn-danger py-0 px-1")
+
+        //create div next to button
+        let $movie = $("<div>");
+        $movie.css("display","inline-block");
+        $movie.addClass("px-2")
+        
+
+        $("#my-movies").append($delBtn).append($movie.text(`${$title}  ${$rating}`));
+        $("#my-movies").append($("<br>"));
+
+        $delBtn.on("click", (e) => {
+            e.target.nextSibling.nextSibling.remove();
+            e.target.nextSibling.remove();
+            e.target.remove(); 
+            
+        })
 
     })
 
